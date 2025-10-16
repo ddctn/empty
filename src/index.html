@@ -5,13 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Main page</title>
   </head>
-  <body>
-    <h1>Main page</h1>
-    <h2>Categories</h2>
-    <ul>
+  <body id="index">
+    <!-- <ul>
       <li><a href="pages/articles.html">Articles</a></li>
       <li><a href="pages/tests.html">Tests</a></li>
       <li><a href="pages/dictionary.html">Dictionary</a></li>
-    </ul>
+    </ul> -->
+
+     <div class="indexAnimation">
+      <div class="animCircle"></div>
+      <div class="animCircle"></div>
+      <div class="animCircle"></div>
+      <div class="animCircle"></div>
+    </div>
+    <div id="indexWrapper">
+      <div class="indexContainer">
+        <div class="indexContainerInfo">
+          <h2>медиа об уходе <br />за домашними растениями</h2>
+          <p>Простыми словами расскажем, как озеленить вашу квартиру.</p>
+          <p>
+            Скоро тут появится боольше информации. Чтобы первыми узнать об
+            обновлениях, оставьте свою почту.
+          </p>
+
+          <form
+            id="my-form"
+            action="https://formspree.io/f/xkgqkege"
+            method="POST"
+          >
+            <input type="text" name="message" />
+            <button id="my-form-button">отправить</button>
+            <p id="my-form-status"></p>
+          </form>
+        </div>
+
+        <div class="indexContainerImage">
+          <img src="img/glassflower.svg" alt="" />
+        </div>
+      </div>
+      <h1>цветочный.</h1>
+    </div>
+
+    <script>
+  var form = document.getElementById("my-form");
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    var status = document.getElementById("my-form-status");
+    var data = new FormData(event.target);
+    fetch(event.target.action, {
+      method: form.method,
+      body: data,
+      headers: {
+          'Accept': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        status.innerHTML = "Спасибо!";
+        form.reset()
+      } else {
+        response.json().then(data => {
+          if (Object.hasOwn(data, 'errors')) {
+            status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+          } else {
+            status.innerHTML = "Упс! Какая-то ошибка"
+          }
+        })
+      }
+    }).catch(error => {
+      status.innerHTML = "Упс! Какая-то ошибка"
+    });
+  }
+  form.addEventListener("submit", handleSubmit)
+    </script>
   </body>
 </html>
+
+<!-- modify this form HTML and place wherever you want your form -->
+
+
+<!-- Place this script at the end of the body tag -->
